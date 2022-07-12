@@ -1,0 +1,158 @@
+body {
+    background: url("images/joanna-kosinska-1_CMoFsPfso-unsplash.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    color: red;
+}
+
+#main {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: aliceblue;
+    border: 2px solid black;
+    height: 5vh;
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    /*backdrop-filter: blur(5px);*/
+    margin: 2px;
+}
+
+.card:hover {
+    cursor: pointer;
+ }
+
+.card-title {
+    margin: auto;
+}
+
+input:invalid {
+    border: 3px solid red;
+}
+
+input:valid {
+    border: 3px solid mediumseagreen;
+}
+
+.container{
+    background-color: #ded8d8;
+    padding: 1rem;
+    margin-top: 1rem;
+    width: 20vw;
+    border: 1px solid black;
+    text-align: center;
+    height: fit-content;
+}
+
+.draggable{
+    padding: 1rem;
+    background-color: aliceblue;
+    border: 1px solid black;
+    cursor: move;
+    margin-top: 0.5rem;
+}
+
+.draggable.dragging {
+    opacity: 0.5;
+}
+
+.kanban-container{
+    width: 80vw;
+    max-height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.container-title {
+    border-bottom: 2px solid black;
+}
+
+.tasks-info-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tasks-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.member-card {
+    background-color: aliceblue;
+    border: 2px solid black;
+    height: 5vh;
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    /*backdrop-filter: blur(5px);*/
+    margin: 2px;
+}
+
+.members-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#members-cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+li {
+    cursor: pointer;
+    color: white;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 33.33%;
+    padding: 1% 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+li:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #04AA6D;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    top: 0;
+    width: 100%;
+    height: 5vh;
+    align-items: center;
+}
