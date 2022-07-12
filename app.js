@@ -4,6 +4,7 @@ const kanban = document.getElementById("kanban");
 const task = document.getElementById("task");
 const members = document.getElementById("members");
 const gifElement = document.getElementById('gif');
+const pageName = document.getElementById('page-name');
 // Init task id at 1 if 'nextTaskId' doesn't exist.
 let nextTaskId = (localStorage.getItem('nextTaskId') ? parseInt(localStorage.getItem('nextTaskId')) : 1);
 // Retrieve from local storage 'tasks' item.
@@ -16,6 +17,7 @@ const STATUS_TO_VALIDATE = 'A Valider';
 const STATUS_DONE = 'Fait';
 
 if (location.pathname === '/') {
+    document.title = 'Bienvenue';
     gifElement.style.display = 'block';
 }
 
@@ -157,9 +159,14 @@ class Task {
     }
 }
 
+const emptyTaskMembersOptions = () => {
+    while (taskMembers.options.length > 0) {
+        taskMembers.remove(0);
+    }
+}
+
 const fillTaskMembersOptions = () => {
     console.log('fillTaskMembersOptions');
-    console.log(allMembers);
     if (allMembers.length > 0) {
         allMembers.forEach((member) => {
                 let memberOption = document.createElement('option');
@@ -451,8 +458,8 @@ const taskInfoFormListener = () => {
 const fillTaskInfoForm = (currentTask) => {
     console.log(currentTask._title)
     taskInfoTitle.setAttribute('value', '');
-    taskInfoTitle.setAttribute('value', currentTask._title);
-    taskInfoContent.setAttribute('value', currentTask._content);
+    taskInfoTitle.value = currentTask._title;
+    taskInfoContent.value = currentTask._content;
     taskInfoStatus.selectedIndex = 0;
     fillTaskInfoMembersOptions(currentTask);
 }
@@ -882,6 +889,9 @@ window.addEventListener('pathnamechange', () => {
     console.log('path handler : pathname : ' + location.pathname);
     gifElement.style.display = 'none';
     if (location.pathname === '/tasks') {
+        if (history.state.lastPage === '/tasks') {
+            emptyTaskMembersOptions();
+        }
         if (history.state.lastPage === '/kanban') {
             emptyKanban();
             main.removeChild(kanbanContainer);
@@ -891,6 +901,9 @@ window.addEventListener('pathnamechange', () => {
         if (main.contains(taskInfoContainer)) {
             main.removeChild(taskInfoContainer);
         }
+        document.title = 'Tâches';
+        pageName.innerText = 'Tâches';
+        emptyTaskMembersOptions();
         fillTaskMembersOptions();
         main.append(tasksPageContainer);
         cardsContainer = displayStoredTasks();
@@ -901,11 +914,14 @@ window.addEventListener('pathnamechange', () => {
         });
         if (main.contains(tasksPageContainer))
             main.removeChild(tasksPageContainer);
+        document.title = 'Détails';
+        pageName.innerText = 'Détails de la tâches';
         main.append(taskInfoContainer);
         fillTaskInfoForm(currentTaskInfo);
         taskInfoFormListener();
     } else if (location.pathname === '/kanban') {
         if (history.state.lastPage === '/tasks') {
+            emptyTaskMembersOptions();
             main.removeChild(tasksPageContainer);
         } else if (history.state.lastPage === '/members') {
             main.removeChild(membersPageContainer);
@@ -914,6 +930,8 @@ window.addEventListener('pathnamechange', () => {
             main.removeChild(taskInfoContainer);
         }
         if (history.state.lastPage !== location.pathname) {
+            document.title = 'Kanban';
+            pageName.innerText = 'Kanban';
             main.append(kanbanContainer);
             fillKanban();
             draggableListener();
@@ -923,6 +941,7 @@ window.addEventListener('pathnamechange', () => {
         console.log('/members')
         if (history.state.lastPage === '/tasks') {
             console.log('from /tasks')
+            emptyTaskMembersOptions();
             main.removeChild(tasksPageContainer);
         } else if (history.state.lastPage === '/kanban') {
             console.log('from /kanban')
@@ -932,6 +951,9 @@ window.addEventListener('pathnamechange', () => {
         if (main.contains(taskInfoContainer)) {
             main.removeChild(taskInfoContainer);
         }
+        document.title = 'Membres';
+        pageName.innerText = 'Membres';
+        console.log(document.title);
         main.append(membersPageContainer);
         membersCardContainer = displayMembersStored();
     }
